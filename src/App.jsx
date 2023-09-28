@@ -17,6 +17,24 @@ class App extends Component {
     filter: "",
   };
 
+  componentDidMount() {
+    const stringifiedContacts = localStorage.getItem("contacts");
+    console.log("stringifiedContacts:", stringifiedContacts);
+    const parsedContacts = JSON.parse(stringifiedContacts) ?? [];
+    this.setState({
+      contacts: parsedContacts,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // якщо довжини масивів між рендерами відрізняються, це каже про те, що зміна відбулася
+    if (this.state.contacts.length !== prevState.contacts.length) {
+      // console.log("change in state");
+      const stringifiedContacts = JSON.stringify(this.state.contacts);
+      localStorage.setItem("contacts", stringifiedContacts);
+    }
+  }
+
   addContact = (name, number) => {
     // console.log(name);
     if (
