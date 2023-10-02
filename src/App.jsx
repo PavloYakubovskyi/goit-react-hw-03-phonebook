@@ -29,7 +29,6 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     // якщо довжини масивів між рендерами відрізняються, це каже про те, що зміна відбулася
     if (this.state.contacts.length !== prevState.contacts.length) {
-      // console.log("change in state");
       const stringifiedContacts = JSON.stringify(this.state.contacts);
       localStorage.setItem("contacts", stringifiedContacts);
     }
